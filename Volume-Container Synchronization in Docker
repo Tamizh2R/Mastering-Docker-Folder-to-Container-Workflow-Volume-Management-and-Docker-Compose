@@ -1,0 +1,26 @@
+
+
+docker volume ls
+docker volume create myvolume
+docker volume ls
+docker inspect myvolume {you can find the common mount point}
+
+cd <mount path upto _data>
+docker run -itd --name vehicle -p "8020:80" --mount source=myvolume,destination=/usr/local/apache2/htdocs httpd
+
+docker images
+
+docker run -itd --name personal -p "8030:80" --mount source=myvolume,destination=/usr/local/apache2/htdocs httpd
+
+docker run -itd --name home -p "8040:80" --mount source=myvolume,destination=/usr/local/apache2/htdocs httpd
+
+docker container ls
+
+Now try to access the container in browser.
+
+docker exec -it <any container id> /bin/bash
+
+apt-get install vim -y
+
+cd htdocs/
+vi index.html -> i -> docker mount test
