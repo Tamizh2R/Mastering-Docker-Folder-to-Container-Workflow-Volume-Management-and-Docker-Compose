@@ -1,0 +1,67 @@
+# Syncing Docker Containers and Folders: A Seamless Connection
+
+This repository contains detailed step-by-step instructions for setting up a seamless sync between Docker containers and local folders. Whether you're a developer looking to streamline your workflow or a system administrator managing containerized applications, this guide provides code snippets and commands for an efficient setup.
+
+## Docker Volume Setup
+
+### Launch a Docker Server with Ubuntu OS and Docker Installed
+
+```bash
+# Assuming you have Ubuntu OS installed, install Docker
+sudo apt update
+sudo apt install -y docker.io
+Create a "developer" Directory
+bash
+Copy code
+# Create a directory named "developer"
+mkdir ~/developer
+Launch a Docker Container with Volume Mounting
+bash
+Copy code
+# Launch a Docker container with volume mounting
+docker run -itd --name developeraccess -p "8010:80" -v "/root/developer:/usr/local/apache2/htdocs" httpd
+Folder Sync (1.1 SYNC)
+To avoid direct access to the container, we create a folder on the Docker server and enable synchronization between the container and the Docker server.
+
+bash
+Copy code
+# Create a "developer" folder on the Docker server for synchronization
+cd ~
+mkdir developer
+bash
+Copy code
+# Launch a Docker container with volume mounting for synchronization
+docker run -itd --name developeraccess -p "8010:80" -v "/root/developer:/usr/local/apache2/htdocs" httpd
+Container Configuration
+Access the Container
+bash
+Copy code
+# Log in to the container
+docker exec -it developeraccess /bin/bash
+bash
+Copy code
+# Navigate to the htdocs directory (if there's no index file)
+cd htdocs/
+Inside the Container
+bash
+Copy code
+# Update package information
+apt-get update
+
+# Install Vim text editor (or use any other editor of your choice)
+apt-get install -y vim
+bash
+Copy code
+# Edit the index.html file
+vi index.html
+# Or, you can use echo to create a simple index.html
+echo "This is docker session 3" > index.html
+bash
+Copy code
+# View the contents of index.html
+cat index.html
+bash
+Copy code
+# Exit the container
+exit
+Check the synchronization in the Docker server and make changes in the Docker server, then check inside the container for synchronization.
